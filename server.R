@@ -1,11 +1,10 @@
-library(shiny)
-
 shinyServer(function(input, output) {
-  output$distPlot <- renderPlot({
-    x    <- faithful[, 2]  # Old Faithful Geyser data
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+  output$ageDist <- renderPlotly({
+    ages <- titanic.df$Age  
     
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    # draw the histogram
+    plot_ly(x=ages, 
+            type = "histogram",
+            color = "#FFB366")
   })
 })

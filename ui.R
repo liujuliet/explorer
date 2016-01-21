@@ -1,19 +1,25 @@
+library(dplyr)
+library(plotly)
+library(readr)
 library(shiny)
 
+titanic.df = read_csv("data/titanic.csv")
+avg.age <- mean(titanic.df$Age, na.rm = TRUE)
+
 shinyUI(fluidPage(
-  titlePanel("Default Shiny App"),
+  titlePanel("Overview of Titanic Passengers"),
+  p("Data source: Kaggle"),
   
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
+      h4("Summary Statistics"),
+      
+      h6(paste("Total Number of passengers:"), nrow(titanic.df)),
+      h6(paste("Average Age:", avg.age))
     ),
     
     mainPanel(
-      plotOutput("distPlot")
+      plotlyOutput("ageDist")
     )
   )
 ))
